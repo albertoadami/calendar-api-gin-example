@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 
+	"github.com/albertoadami/calendar-api-gin-example/pkg/http/routes"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
 )
@@ -14,12 +14,10 @@ func main() {
 
 	servicePort := viper.Get("SERVICE_PORT").(string)
 
-	r := gin.Default()
+	router := gin.Default()
 
-	r.GET("/health", func(c *gin.Context) {
-		c.Writer.WriteHeader(http.StatusNoContent)
-	})
+	routes.HealthRoutes(router)
 
-	r.Run(fmt.Sprintf(":%s", servicePort))
+	router.Run(fmt.Sprintf(":%s", servicePort))
 
 }
