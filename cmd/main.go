@@ -14,8 +14,6 @@ func main() {
 
 	servicePort := viper.Get("SERVICE_PORT").(string)
 
-	println(servicePort)
-
 	r := gin.Default()
 
 	r.GET("/health", func(c *gin.Context) {
