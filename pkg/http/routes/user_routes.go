@@ -9,7 +9,11 @@ import (
 )
 
 type UserRoutes struct {
-	userService service.UserService
+	userService *service.UserService
+}
+
+func NewUserRoutes(userService *service.UserService) *UserRoutes {
+	return &UserRoutes{userService: userService}
 }
 
 func InitRoutes(r *gin.Engine) {

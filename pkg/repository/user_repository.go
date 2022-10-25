@@ -1,5 +1,8 @@
 package repository
 
+import "github.com/albertoadami/calendar-api-gin-example/pkg/repository/entity"
+
 type UserRepository interface {
-	CreateUser(s string) int
+	CreateUser(user entity.UserEntity) (uint, error)
+	ExistUserByEmail(email string) bool
 }

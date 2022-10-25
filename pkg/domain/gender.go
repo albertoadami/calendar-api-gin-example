@@ -11,7 +11,7 @@ const maleString = "MALE"
 const femaleString = "FEMALE"
 
 const (
-	Male Gender = iota
+	Male Gender = iota + 1
 	Female
 )
 
