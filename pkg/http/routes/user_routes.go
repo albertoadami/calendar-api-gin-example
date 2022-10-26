@@ -10,10 +10,13 @@ import (
 
 type UserRoutes struct {
 	userService *service.UserService
+	c           *gin.Context
 }
 
-func NewUserRoutes(userService *service.UserService) *UserRoutes {
-	return &UserRoutes{userService: userService}
+func NewUserRoutes(userService *service.UserService, c *gin.Context) *UserRoutes {
+	routes := &UserRoutes{userService: userService, c: c}
+
+	return routes
 }
 
 func InitRoutes(r *gin.Engine) {

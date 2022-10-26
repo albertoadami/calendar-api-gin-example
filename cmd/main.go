@@ -1,14 +1,14 @@
 package main
 
 import (
+	"github.com/albertoadami/calendar-api-gin-example/pkg/database"
 	"github.com/albertoadami/calendar-api-gin-example/pkg/http/routes"
 	"github.com/gin-gonic/gin"
-	"github.com/spf13/viper"
 )
 
 func main() {
-	viper.SetConfigFile("./pkg/config/.env")
-	viper.ReadInConfig()
+
+	_ = database.GetConnection()
 
 	router := gin.Default()
 

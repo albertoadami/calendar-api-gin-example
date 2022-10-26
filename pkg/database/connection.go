@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/albertoadami/calendar-api-gin-example/pkg/config"
+	"github.com/albertoadami/calendar-api-gin-example/pkg/repository/entity"
 	log "github.com/sirupsen/logrus"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -33,4 +34,8 @@ func init() {
 
 func GetConnection() *gorm.DB {
 	return database
+}
+
+func MigrateDatabase() {
+	database.Migrator().CreateTable(&entity.UserEntity{})
 }
