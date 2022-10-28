@@ -33,7 +33,7 @@ func main() {
 	v1 := router.Group("/api/v1")
 	v1.POST("/users", userController.CreateUserHandler)
 
-	routes.HealthRoutes(router)
+	controller.HealthController(router)
 
 	router.Run()
 
