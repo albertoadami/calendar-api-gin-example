@@ -13,9 +13,10 @@ import (
 var database *gorm.DB
 
 func init() {
-	config, error := config.LoadConfig()
+	config, error := config.LoadConfig("./pkg/config")
 
 	if error != nil {
+		log.Error(fmt.Printf("Received error when loading config: %s", error))
 		panic("error during loading of configuration, impossibile to init database connection")
 	} else {
 		dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=disable", config.DatabaseHost, config.DatabaseUser, config.DatabasePassword, config.DatabaseName, config.DatabasePort)

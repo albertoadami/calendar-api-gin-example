@@ -8,11 +8,10 @@ type Config struct {
 	DatabaseUser     string `mapstructure:"DATABASE_USER"`
 	DatabasePassword string `mapstructure:"DATABASE_PASSWORD"`
 	DatabaseName     string `mapstructure:"DATABASE_NAME"`
-	ServicePort      string `mapstructure:"SERVICE_PORT"`
 }
 
-func LoadConfig() (c Config, err error) {
-	viper.AddConfigPath("./")
+func LoadConfig(path string) (c Config, err error) {
+	viper.AddConfigPath(path)
 	viper.SetConfigName(".env")
 	viper.SetConfigType("env")
 

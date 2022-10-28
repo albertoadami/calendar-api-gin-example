@@ -7,7 +7,7 @@ import (
 )
 
 func TestLoadConfig(t *testing.T) {
-	config, err := LoadConfig()
+	config, err := LoadConfig("./")
 
 	assert.Equal(t, nil, err)
 	assert.Equal(t, "localhost", config.DatabaseHost)
