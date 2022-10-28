@@ -1,4 +1,4 @@
-package routes
+package controller
 
 import (
 	"net/http"
@@ -11,11 +11,11 @@ import (
 
 func setUpRouter() *gin.Engine {
 	r := gin.Default()
-	HealthRoutes(r)
+	HealthController(r)
 	return r
 }
 
-func TestHealthRoute(t *testing.T) {
+func TestHealthController(t *testing.T) {
 	router := setUpRouter()
 
 	w := httptest.NewRecorder()

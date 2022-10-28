@@ -1,4 +1,4 @@
-package routes
+package controller
 
 import (
 	"net/http"
@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func HealthRoutes(r *gin.Engine) {
+func HealthController(r *gin.Engine) {
 	r.GET("/health", healthHandler)
 }
 

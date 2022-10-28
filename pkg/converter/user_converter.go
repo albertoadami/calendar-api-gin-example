@@ -3,7 +3,7 @@ package converter
 import (
 	"time"
 
-	"github.com/albertoadami/calendar-api-gin-example/pkg/http/json"
+	"github.com/albertoadami/calendar-api-gin-example/pkg/json"
 	"github.com/albertoadami/calendar-api-gin-example/pkg/repository/entity"
 )
 
