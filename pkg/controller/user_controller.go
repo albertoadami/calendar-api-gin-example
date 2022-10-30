@@ -1,8 +1,11 @@
 package controller
 
 import (
+	"errors"
 	"net/http"
+	log "github.com/sirupsen/logrus"
 
+	customerrors "github.com/albertoadami/calendar-api-gin-example/pkg/errors"
 	"github.com/albertoadami/calendar-api-gin-example/pkg/json"
 	"github.com/albertoadami/calendar-api-gin-example/pkg/service"
 	"github.com/gin-gonic/gin"
@@ -29,7 +32,13 @@ func (r *UserRoutes) CreateUserHandler(c *gin.Context) {
 
 	_, err := r.userService.CreateUser(req)
 	if err != nil {
-		c.Writer.WriteHeader(http.StatusInternalServerError)
+		var emailInUserError *customerrors.EmailAlreadyInUseError
+		if errors.As(err, &emailInUserError) {
+			c.Writer.WriteHeader(http.StatusConflict)
+		} else {
+			log.Errorf("Received an unexpected error: %s, returning 500 status code", err)
+			c.Writer.WriteHeader(http.StatusInternalServerError)
+		}
 	} else {
 		c.Writer.WriteHeader(http.StatusCreated)
 	}

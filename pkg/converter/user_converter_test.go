@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/albertoadami/calendar-api-gin-example/pkg/domain"
-	"github.com/albertoadami/calendar-api-gin-example/pkg/http/json"
+	"github.com/albertoadami/calendar-api-gin-example/pkg/json"
 	"github.com/stretchr/testify/assert"
 )
 

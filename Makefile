@@ -4,13 +4,17 @@ fmt:
 		go fmt ./...
 .PHONY:fmt
 
-lint: fmt
+lint:
 		golint ./...
 .PHONY:lint
 
-vet: fmt
+vet:
 		go vet ./...
 .PHONY:vet
+
+test:
+		go test ./...
+.PHONY:test
 
 build: build
 		go build cmd/main.go
