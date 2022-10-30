@@ -1,8 +1,8 @@
 package service
 
 import (
-	customerrors "github.com/albertoadami/calendar-api-gin-example/pkg/errors"
 	"github.com/albertoadami/calendar-api-gin-example/pkg/converter"
+	customerrors "github.com/albertoadami/calendar-api-gin-example/pkg/errors"
 	"github.com/albertoadami/calendar-api-gin-example/pkg/json"
 	"github.com/albertoadami/calendar-api-gin-example/pkg/repository"
 )

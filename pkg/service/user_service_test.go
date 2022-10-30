@@ -2,18 +2,19 @@ package service
 
 import (
 	"fmt"
-	"testing"
-	errors "github.com/albertoadami/calendar-api-gin-example/pkg/errors"
 	"github.com/albertoadami/calendar-api-gin-example/pkg/domain"
+	errors "github.com/albertoadami/calendar-api-gin-example/pkg/errors"
 	"github.com/albertoadami/calendar-api-gin-example/pkg/json"
 	"github.com/albertoadami/calendar-api-gin-example/pkg/repository/entity"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 var userId uint = 123
 var createUserRequest = json.CreateUserRequest{FirstName: "test", LastName: "test", Email: "test@test.it", Password: "password", Gender: domain.Male}
 
 type MockSuccessUserRepository struct{}
+
 func (r *MockSuccessUserRepository) CreateUser(user *entity.UserEntity) (uint, error) {
 	return userId, nil
 }
@@ -21,7 +22,8 @@ func (r *MockSuccessUserRepository) ExistUserByEmail(email string) bool {
 	return false
 }
 
-type MockFailureUserRepository struct{exist bool}
+type MockFailureUserRepository struct{ exist bool }
+
 func (r *MockFailureUserRepository) CreateUser(user *entity.UserEntity) (uint, error) {
 	return 0, fmt.Errorf("Some error occurred")
 }
@@ -47,7 +49,7 @@ func TestCreateUserAlreadyInUse(t *testing.T) {
 
 	result, err := userService.CreateUser(createUserRequest)
 	assert.Equal(t, noUserId, result)
-	assert.Equal(t, (&errors.EmailAlreadyInUseError{Email: createUserRequest.Email}).Error(), err)
+	assert.Equal(t, &errors.EmailAlreadyInUseError{Email: createUserRequest.Email}, err)
 }
 
 func TestCreateUserError(t *testing.T) {

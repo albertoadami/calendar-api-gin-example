@@ -2,8 +2,8 @@ package controller
 
 import (
 	"errors"
-	"net/http"
 	log "github.com/sirupsen/logrus"
+	"net/http"
 
 	customerrors "github.com/albertoadami/calendar-api-gin-example/pkg/errors"
 	"github.com/albertoadami/calendar-api-gin-example/pkg/json"
