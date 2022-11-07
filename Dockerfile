@@ -34,6 +34,6 @@ COPY . .
 # Build the application.
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o main ./cmd/main.go
 
-EXPOSE 9000
+EXPOSE 8080
 # Run executable
 CMD ["./main"]

@@ -1,23 +1,42 @@
 package main
 
 import (
-	"fmt"
-
-	"github.com/albertoadami/calendar-api-gin-example/pkg/http/routes"
+	"github.com/albertoadami/calendar-api-gin-example/pkg/controller"
+	"github.com/albertoadami/calendar-api-gin-example/pkg/database"
+	"github.com/albertoadami/calendar-api-gin-example/pkg/repository"
+	"github.com/albertoadami/calendar-api-gin-example/pkg/service"
 	"github.com/gin-gonic/gin"
-	"github.com/spf13/viper"
+	log "github.com/sirupsen/logrus"
 )
 
 func main() {
-	viper.SetConfigFile("./pkg/config/.env")
-	viper.ReadInConfig()
 
-	servicePort := viper.Get("SERVICE_PORT").(string)
+	log.Info("Initialize Database connection...")
+	connection := database.GetConnection()
+	log.Info("Database connection completed successfully.")
 
-	router := gin.Default()
+	log.Info("Migrating Database structure...")
+	database.MigrateDatabase()
+	log.Info("Database structure completed successfully.")
 
-	routes.HealthRoutes(router)
+	router := gin.New()
 
-	router.Run(fmt.Sprintf(":%s", servicePort))
+	router.Use(gin.Logger())
+	router.Use(gin.Recovery())
+
+	//repositories
+	userRepository := repository.NewUserRepository(connection)
+
+	//services
+	userService := service.NewUserService(userRepository)
+
+	router.GET("/health", controller.GetHealthHandler)
+	//controllers
+	userController := controller.NewUserController(userService)
+
+	v1 := router.Group("/api/v1")
+	v1.POST("/users", userController.CreateUserHandler)
+
+	router.Run()
 
 }
