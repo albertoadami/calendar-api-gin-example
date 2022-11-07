@@ -19,7 +19,10 @@ func main() {
 	database.MigrateDatabase()
 	log.Info("Database structure completed successfully.")
 
-	router := gin.Default()
+	router := gin.New()
+
+	router.Use(gin.Logger())
+	router.Use(gin.Recovery())
 
 	//repositories
 	userRepository := repository.NewUserRepository(connection)
@@ -27,13 +30,12 @@ func main() {
 	//services
 	userService := service.NewUserService(userRepository)
 
+	router.GET("/health", controller.GetHealthHandler)
 	//controllers
 	userController := controller.NewUserController(userService)
 
 	v1 := router.Group("/api/v1")
 	v1.POST("/users", userController.CreateUserHandler)
-
-	controller.HealthController(router)
 
 	router.Run()
 

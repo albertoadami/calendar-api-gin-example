@@ -11,26 +11,25 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type UserRoutes struct {
+type UserController struct {
 	userService *service.UserService
 }
 
-func NewUserController(userService *service.UserService) *UserRoutes {
-	routes := &UserRoutes{userService: userService}
-
+func NewUserController(userService *service.UserService) *UserController {
+	routes := &UserController{userService: userService}
 	return routes
 }
 
-func (r *UserRoutes) CreateUserHandler(c *gin.Context) {
+func (r *UserController) CreateUserHandler(c *gin.Context) {
 
 	var req json.CreateUserRequest
 
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
+		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
 
-	_, err := r.userService.CreateUser(req)
+	_, err := r.userService.CreateUser(&req)
 	if err != nil {
 		var emailInUserError *customerrors.EmailAlreadyInUseError
 		if errors.As(err, &emailInUserError) {

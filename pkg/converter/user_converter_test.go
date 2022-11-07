@@ -10,7 +10,7 @@ import (
 
 func TestFromCreateUserRequestToDomain(t *testing.T) {
 
-	var createUserRequest = json.CreateUserRequest{FirstName: "name", LastName: "last", Email: "name@last.com", Password: "password", Gender: domain.Male}
+	var createUserRequest = &json.CreateUserRequest{FirstName: "name", LastName: "last", Email: "name@last.com", Password: "password", Gender: domain.Male}
 
 	result := FromCreateUserRequestToDomain(createUserRequest)
 

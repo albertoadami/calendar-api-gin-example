@@ -15,7 +15,7 @@ func NewUserService(userRepository repository.UserRepository) *UserService {
 	return &UserService{userRepository: userRepository}
 }
 
-func (c *UserService) CreateUser(req json.CreateUserRequest) (uint, error) {
+func (c *UserService) CreateUser(req *json.CreateUserRequest) (uint, error) {
 	exists := c.userRepository.ExistUserByEmail(req.Email)
 
 	if exists {
@@ -23,7 +23,7 @@ func (c *UserService) CreateUser(req json.CreateUserRequest) (uint, error) {
 		return 0, emailInUserError
 	} else {
 		userEntity := converter.FromCreateUserRequestToDomain(req)
-		return c.userRepository.CreateUser(&userEntity)
+		return c.userRepository.CreateUser(userEntity)
 	}
 
 }

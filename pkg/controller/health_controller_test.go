@@ -11,7 +11,7 @@ import (
 
 func setUpRouter() *gin.Engine {
 	r := gin.Default()
-	HealthController(r)
+	r.GET("health", GetHealthHandler)
 	return r
 }
 

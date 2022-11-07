@@ -2,16 +2,16 @@ package service
 
 import (
 	"fmt"
-	"github.com/albertoadami/calendar-api-gin-example/pkg/domain"
-	errors "github.com/albertoadami/calendar-api-gin-example/pkg/errors"
-	"github.com/albertoadami/calendar-api-gin-example/pkg/json"
-	"github.com/albertoadami/calendar-api-gin-example/pkg/repository/entity"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	errors "github.com/albertoadami/calendar-api-gin-example/pkg/errors"
+	"github.com/albertoadami/calendar-api-gin-example/pkg/repository/entity"
+	"github.com/albertoadami/calendar-api-gin-example/pkg/test"
+	"github.com/stretchr/testify/assert"
 )
 
 var userId uint = 123
-var createUserRequest = json.CreateUserRequest{FirstName: "test", LastName: "test", Email: "test@test.it", Password: "password", Gender: domain.Male}
+var createUserRequest = test.GetCreateUserRequest()
 
 type MockSuccessUserRepository struct{}
 
